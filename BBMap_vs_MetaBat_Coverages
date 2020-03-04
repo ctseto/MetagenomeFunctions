@@ -1,0 +1,28 @@
+CoverageDataBBMap<-sapply(Integrated$Sample.ID,function(x) read.csv(paste("../f13_megahit_contigsdepthfromBBMap/",x,"_f13_megahit_famaptocontigs.sorted.BBMappileupstats.txt",sep=''),sep='\t',strip.white = T,stringsAsFactors = F)
+)
+colnames(CoverageDataBBMap)<-Integrated$Sample.ID
+
+CoverageDataMetaBat<-sapply(Integrated$Sample.ID,function(x) read.csv(paste("../f13_megahit_contigsdepthfrommetabat/",x,"_final.contigs.fa.depth.txt",sep=''),sep='\t',strip.white = T,stringsAsFactors = F)
+)
+colnames(CoverageDataMetaBat)<-Integrated$Sample.ID
+
+#Question, does Avg fold and totalavgdepth from BBMap and Metabat agree?
+
+sapply(seq(1,58), function(x) {
+  Intersect=intersect(CoverageData[,x]$X.ID,CoverageDataMetaBat[,x]$contigName);
+  cor(CoverageData[,x]$Avg_fold[match(Intersect,CoverageData[,x]$X.ID)],CoverageDataMetaBat[,x]$totalAvgDepth[match(Intersect,CoverageDataMetaBat[,x]$contigName)])
+})
+
+[1] 0.9976576 0.9979005 0.9987913 0.9984478 0.9978322
+[6] 0.9978165 0.9994171 0.9995416 0.9986098 0.9987331
+[11] 0.9990297 0.9971869 0.9981366 0.9980551 0.9954485
+[16] 0.9988358 0.9984015 0.9986885 0.9993690 0.9994207
+[21] 0.9946452 0.9989896 0.9947713 0.9970996 0.9993001
+[26] 0.9980990 0.9990370 0.9975358 0.9995894 0.9936090
+[31] 0.9996854 0.9995281 0.9991683 0.9985682 0.9981008
+[36] 0.9969744 0.9991744 0.9986073 0.9992347 0.9962869
+[41] 0.9979748 0.9992032 0.9993863 0.9982949 0.9942725
+[46] 0.9990770 0.9987785 0.9995955 0.9991333 0.9968325
+[51] 0.9984682 0.9994691 0.9970614 0.9978081 0.9968760
+[56] 0.9975517 0.9995007 0.9964707
+
