@@ -28,7 +28,7 @@ which(unlist(sapply(seq(1,58), function(x) (SUPERFOCUS_outputbinning2[,x]$Read.N
 #Here the main input is the cluster number, which when combined with CD-HIT input data and SUPER-FOCUS, outputs all the annotations for all contigs across all samples that were in this cluster.
 
 
-CDHitToSuperFocus_original<-function(CDHITInput,SUPERFOCUS_Input,ClusterNum)
+CDHitToSuperFocus_original<-function(ClusterNum)
 {
   return((((sapply(CDHitClusterReps3$ContigName[which(CDHitClusterReps3$ClusterNum==as.numeric(ClusterNum))], function(Temp) {
     A=gsub("^.*_k","k",Temp)
@@ -48,26 +48,6 @@ CDHitToSuperFocus<-function(CDHITInput,SUPERFOCUS_Input,ClusterNum)
 {
   Vector=CDHITInput$ContigName[which(CDHITInput$ClusterNum==as.numeric(ClusterNum))]
   
-  #sapply(Vector, function(w) which(gsub(".*_k","k",w)==SUPERFOCUS_outputbinning[,which(gsub("_k.*$","",Temp)==Integrated$Sample.ID)]$Read.Name)) 
-  #Answer=sapply(Vector, function(w) {
-  #  Samp=SUPERFOCUS_outputbinning[,which(gsub("_k.*$","",w)==Integrated$Sample.ID)];
- #   Samp$Function[which(gsub(".*_k","k",w)==Samp$Read.Name)]
- #   
-  #})
- # Bla=;
-  
-  #sapply(Vector, function(w) grep((gsub(".*_k","k",(Vector))),SUPERFOCUS_outputbinning[,which(gsub("_k.*","",w)==Integrated$Sample.ID)]$Read.Name,value=T))
-   #Answer=sapply(Vector, function(Temp) 
-  #  {
-  #  A=gsub(".*_k","k",Temp)
-  #  A1=paste(A,"$",sep='')
-  #  B=gsub("_k.*$","",Temp)
-  #  Col=which(B==Integrated$Sample.ID)
-  #  D=which(A==SUPERFOCUS_outputbinning[,Col]$Read.Name)
-  #  SUPERFOCUS_outputbinning[,Col]$Function[D]
-  #})
-  
-  #return(Answer)
   return(sapply(Vector, function(w)
   {
     #print(w)
